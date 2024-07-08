@@ -1,0 +1,31 @@
+import mysql.connector
+
+# Connection to your MySQL database
+conn = mysql.connector.connect(
+    host='your_host',
+    user='your_username',
+    password='your_password',
+    database='your_database'
+)
+
+cursor = conn.cursor()
+
+
+cursor.execute("CREATE TABLE IF NOT EXISTS students (student_id INT AUTO_INCREMENT PRIMARY KEY, first_name VARCHAR(255), last_name VARCHAR(255), age INT, grade FLOAT)")
+
+cursor.execute("INSERT INTO students (first_name, last_name, age, grade) VALUES ('Alice', 'Smith', 18, 95.5)")
+
+cursor.execute("UPDATE students SET grade = 97.0 WHERE first_name = 'Alice'")
+
+cursor.execute("DELETE FROM students WHERE last_name = 'Smith'")
+
+cursor.execute("SELECT * FROM students")
+records = cursor.fetchall()
+
+for record in records:
+    print(record)
+
+conn.commit()
+conn.close()
+
+ 
